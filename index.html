@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JSVG</title>
+	<style type="text/css">
+		.jasmine_html-reporter {
+			display: none;
+		}
+		html {
+			height: 100vh;
+			overflow: hidden;
+		}
+		canvas#canvgCanvas {
+			display: none;
+		}
+		body {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			height: 100%;
+			flex-direction: row;
+			background-color: #f8f8f8;
+			font-color: #111111;
+		}
+		.topUI {
+			width: 0px;
+			flex: 1 1 auto;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: stretch;
+			padding: 0 10px 0 10px;
+		}
+		#left {
+			/*background-color: red;*/
+			border-right: 1px solid #111111;
+		}
+		#right {
+			/*background-color: blue;*/
+		}
+		.topUI > .title {
+			text-align: center;
+			font-size: 20px;
+			padding: 5px;
+			border-bottom: 1px solid #111111;
+		}
+
+		.code {
+			height: 0;
+			padding: 5px;
+			flex: 1 1 auto;
+			box-sizing: border-box;
+			font-size: 16px;
+			width: 100% !important;
+			font-family: monospace;
+			border: 1px solid #111111;
+			margin: 10px 0 10px 0;
+			border-radius: 5px;
+			outline: 0;
+			overflow-wrap: break-word;
+			overflow: auto;
+			color: #111111;
+		}
+		#svgCodeInput:focus {
+			padding: 4px;
+			border: 2px solid #dd0000;
+		}
+		#jsCodeOutput:focus {
+			padding: 4px;
+			border: 2px solid #0000dd;
+		}
+		.buttons {
+			display: flex;
+			width: 100%;
+			height: 16px;
+			flex: 0 0 auto;
+			margin-bottom: 10px;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+		}
+		.button {
+			flex: 0 0 auto;
+			text-align: center;
+			align-self: center;
+			width: 100px;
+			height: 16px;
+			font-size: 16px;
+			padding: 4px;
+			border: 1px solid #111111;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+		.button:not(:last-child) {
+			margin-right: 10px;
+		}
+		.button::selection {
+			background-color: transparent;
+		}
+		.button::moz-selection {
+			background-color: transparent;
+		}
+		.button:hover {
+			background-color: rgba(0,0,0,0.1);
+		}
+		.button:active {
+			background-color: rgba(0,0,0,0.2);
+		}
+		.outputContainer {
+			width: 100%;
+			height: 0;
+			flex: 1 1 auto;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body onload="init();">
+	<!-- <script type="text/javascript" src="scripts/jasmine.js"></script>
+	<script type="text/javascript" src="scripts/jasmine-html.js"></script>
+	<script type="text/javascript" src="scripts/boot.js"></script> -->
+	<script type="text/javascript" src="scripts/sinon-3.2.1.js"></script>
+	<script type="text/javascript" src="scripts/rgbcolor.js"></script> 
+	<script type="text/javascript" src="scripts/StackBlur.js"></script>
+	<script type="text/javascript" src="scripts/canvg.js"></script>
+	<script type="text/javascript" src="scripts/jsvg.js"></script>
+
+	<canvas id="canvgCanvas"></canvas>
+	<div class="topUI" id="left">
+		<div class="title">Input SVG</div>
+		<div contenteditable="true" spellcheck="false" class="code" id="svgCodeInput"></div>
+		<div class="buttons">
+			<!-- <a class="button" id="svgUpload">Upload</a> -->
+			<a class="button" id="svgPreview">Preview</a>
+			<a class="button" id="svgSubmit">Submit</a>
+		</div>
+		<div class="title">SVG Preview:</div>
+		<div class="outputContainer" id="svgPreviewOutput">
+			
+		</div>
+	</div>
+	<div class="topUI" id="right">
+		<div class="title">Output</div>
+		<div contenteditable="true" spellcheck="false" class="code" id="jsCodeOutput"></div>
+		<div class="buttons">
+			<!-- <a class="button" id="jsDownload">Download</a> -->
+			<a class="button" id="jsTest">Test</a>
+		</div>
+		<div class="title">JS Test:</div>
+		<div class="outputContainer" id="">
+			<canvas id="canvasPreview" height="0" width="0"></canvas>
+		</div>
+	</div>
+</body>
+</html>
