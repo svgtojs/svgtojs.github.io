@@ -74,10 +74,12 @@
 				console.log("skipping due to canvas");
 			} else if (typeof ctx[propertyName] !== "function") {
 				console.log("setting setter spy on " + propertyName);
+				if (jsvg.spies[propertyName] !== undefined) jsvg.spies[propertyName].restore();
 				jsvg.spies[propertyName] = sinon.stub(ctx, propertyName);
 				jsvg.spies[propertyName].set(jsvg.logCall.bind(jsvg, propertyName, "set"));
 			} else {
 				console.log("setting function spy on " + propertyName);
+				if (jsvg.spies[propertyName] !== undefined) jsvg.spies[propertyName].restore();
 				jsvg.spies[propertyName] = sinon.stub(ctx, propertyName);
 				jsvg.spies[propertyName].callsFake(jsvg.logCall.bind(jsvg, propertyName, "function"));
 			}

@@ -63,6 +63,7 @@ var JSVGConverter = function (drawingCanvas, testingCanvas) {
 	this.convertSVG = function (svgCode, callback) {
 		canvg(document.getElementById(this.drawingCanvas), svgCode, {}, this);
 		this.currJS = this.convertLogs(this.logs);
+		console.log(this.currJS);
 		callback(this.currJS);
 	}
 };
@@ -79,7 +80,6 @@ var init = function () {
 			this.svgConverter.convertSVG.call(this.svgConverter, this.svgCodeInput.innerText, this.writeJSCodeOutput.bind(this));
 		}
 		this.writeJSCodeOutput = function (codeOutput) {
-			console.log("hey!");
 			this.jsCodeOutput.innerText = codeOutput.join("");
 		}
 		this.previewSVGCodeInput = function (e) {
