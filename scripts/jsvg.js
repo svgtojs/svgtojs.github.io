@@ -33,7 +33,13 @@ var JSVGConverter = function (drawingCanvas, testingCanvas) {
 			commands[ii] = commandString;
 		}
 		var dictionaryCommands = "var funcNames = " + JSON.stringify(methodDictionary) + ";\n" + 'for (var ii = 0; ii < funcNames.length; ii++) window["f" + ii.toString()] = ctx[funcNames[ii]].bind(ctx);';
-		return ['var ctx = document.getElementById("<your canvas id here>").getContext("2d");\n', dictionaryCommands, '\nctx.save();\n', commands.join("\n"), "\nctx.restore();"];
+		var resArray = ['var ctx = document.getElementById("<your canvas id here>").getContext("2d");\n', dictionaryCommands, '\nctx.save();\n', commands.join("\n"), "\nctx.restore();"];
+		var commands = resArray[3];
+		commands = commands.replace(/(\d?\.\d{3})\d+/g, "$1");
+		commands = commands.replace("6.283", "6.283185307179586");
+		commands = commands.replace(/\s/g, "");
+		resArray[3] = commands;
+		return resArray;
 	}
 	this.getSize = function () {
 		var width = 0;
